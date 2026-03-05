@@ -1,0 +1,10 @@
+{
+  "model": "BAAI/bge-small-zh-v1.5",
+  "space": "cosine",
+  "n": 26498,
+  "dim": 512,
+  "chunks_in": "rag_out_clean/chunks_clean.jsonl",
+  "chunks_out": "rag_out_vec\\chunks_vec.jsonl",
+  "embeddings": "rag_out_vec\\embeddings.npy",
+  "index": "rag_out_vec\\hnsw_index.bin"
+}
