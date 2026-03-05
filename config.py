@@ -3,10 +3,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+APP_HOST = os.getenv("APP_HOST", "127.0.0.1")
+APP_PORT = int(os.getenv("APP_PORT", "8000"))
+
+cors_origins = os.getenv("CORS_ALLOW_ORIGINS", "*")
+if cors_origins.strip() == "*":
+    CORS_ALLOW_ORIGINS = ["*"]
+else:
+    CORS_ALLOW_ORIGINS = [x.strip() for x in cors_origins.split(",") if x.strip()]
+
 MCP_BASE_URL = os.getenv("MCP_BASE_URL", "http://127.0.0.1:9000")
 RAG_VEC_DIR = os.getenv("RAG_VEC_DIR", r"G:\TCM_Clinic\pythonProject\data\rag_out_vec")
 
 CASES_DIR = os.getenv("CASES_DIR", "./cases")
+EXPORT_DIR = os.getenv("EXPORT_DIR", "./cases/exports")
+RAG_SOURCE_FILE = os.getenv("RAG_SOURCE_FILE", "./data/tcm_knowledge.txt")
 
 MAX_TURNS = int(os.getenv("MAX_TURNS", "20"))
 MAX_QUESTIONS_PER_TURN = int(os.getenv("MAX_QUESTIONS_PER_TURN", "3"))

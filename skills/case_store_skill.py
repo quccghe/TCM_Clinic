@@ -86,3 +86,24 @@ def save_case(case: Dict[str, Any]) -> None:
 
 def append_turn(case: Dict[str, Any], role: str, text: str) -> None:
     case["turns"].append({"role": role, "text": text, "ts": int(time.time())})
+
+def list_cases(limit: int = 100):
+    _ensure()
+    items = []
+    for name in os.listdir(CASES_DIR):
+        if not name.endswith('.json'):
+            continue
+        path = os.path.join(CASES_DIR, name)
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            items.append({
+                'case_id': data.get('case_id', name[:-5]),
+                'stage': data.get('stage', ''),
+                'state': data.get('state', ''),
+                'updated_at': data.get('updated_at', 0),
+            })
+        except Exception:
+            continue
+    items.sort(key=lambda x: x.get('updated_at', 0), reverse=True)
+    return items[:limit]
