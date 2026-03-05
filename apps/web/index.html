@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TCM Clinic 前端适配示例</title>
+  <style>
+    :root { --bg:#f7f9fc; --card:#fff; --line:#dfe5ee; --brand:#2563eb; --ok:#0f766e; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: var(--bg); color: #1f2937; }
+    .container { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+    .row { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }
+    label { font-size: 13px; color: #475569; }
+    input, select, textarea, button { font-size: 14px; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; }
+    input, textarea { flex: 1; min-width: 220px; }
+    textarea { min-height: 80px; }
+    button { cursor: pointer; background: #fff; }
+    button.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+    #chatLog { max-height: 440px; overflow: auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; background: #fff; }
+    .msg { margin: 8px 0; padding: 10px; border-radius: 8px; line-height: 1.45; }
+    .user { background: #e8f2ff; }
+    .bot { background: #edf8ef; }
+    .meta { color: #64748b; font-size: 12px; margin-top: 4px; }
+    #status { color: var(--ok); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>TCM Clinic 前端适配 Demo</h2>
+
+    <div class="card">
+      <div class="row">
+        <label>后端地址</label>
+        <input id="apiBaseUrl" value="http://127.0.0.1:8000" />
+        <button id="healthBtn">连接测试</button>
+        <span id="status"></span>
+      </div>
+
+      <div class="row">
+        <label>Case ID</label>
+        <input id="caseId" placeholder="首次问诊可留空" />
+        <label>阶段</label>
+        <select id="stage">
+          <option value="initial">initial</option>
+          <option value="revisit">revisit</option>
+        </select>
+        <button id="loadCasesBtn">获取病例列表</button>
+      </div>
+
+      <div class="row">
+        <label>上次 case_id（复诊）</label>
+        <input id="lastCaseId" placeholder="用于 /revisit/start" />
+        <button id="startRevisitBtn">启动复诊</button>
+      </div>
+
+      <div class="row">
+        <textarea id="message" placeholder="请输入患者主诉，例如：夜里咳嗽、咽干、乏力"></textarea>
+      </div>
+
+      <div class="row">
+        <button id="sendBtn" class="primary">发送问诊</button>
+        <button id="loadCaseBtn">读取当前病例详情</button>
+        <button id="exportPdfBtn">导出 PDF</button>
+        <button id="exportDocxBtn">导出 DOCX</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>对话与接口输出</h4>
+      <div id="chatLog"></div>
+    </div>
+  </div>
+
+  <script src="/web/tcm-api.js"></script>
+  <script src="/web/main.js"></script>
+</body>
+</html>
